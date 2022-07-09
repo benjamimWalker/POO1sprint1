@@ -2,7 +2,7 @@
 
 #include <utility>
 
-
+using std::string;
 
 int UnidadeConsumidora::getNumeroInstalacao() {
     return this->numeroInstalacao;
@@ -10,6 +10,14 @@ int UnidadeConsumidora::getNumeroInstalacao() {
 
 void UnidadeConsumidora::setNumeroInstalacao(int numeroInstalacao) {
     this->numeroInstalacao = numeroInstalacao;
+}
+
+string UnidadeConsumidora::getNomeTitular() {
+    return this->nomeTitular;
+}
+
+void UnidadeConsumidora::setgetNomeTitular(string nomeTitular) {
+    this->nomeTitular = nunomeTitular;
 }
 
 Endereco UnidadeConsumidora::getEndereco(){
@@ -44,17 +52,20 @@ vector<Fatura> UnidadeConsumidora::getFaturas() {
     return this->faturas;
 }
 
-UnidadeConsumidora::UnidadeConsumidora(int numeroInstalacao, Endereco endereco, const vector<Fatura> &faturas, int tensaoAtendimento)
-        : numeroInstalacao(numeroInstalacao), endereco(std::move(endereco)), faturas(faturas), tensaoAtendimento(tensaoAtendimento) {
+UnidadeConsumidora::UnidadeConsumidora(int numeroInstalacao, Endereco endereco, const     
+                                       vector<Fatura> &faturas, int tensaoAtendimento): 
+                                           numeroInstalacao(numeroInstalacao), 
+                                           endereco(std::move(endereco)), faturas(faturas), 
+                                           tensaoAtendimento(tensaoAtendimento) {
+  
     UnidadeConsumidora::ultimaLeitura = 0;
 
-    if (tensaoAtendimento < 1000) {
+    if (tensaoAtendimento < 1000)
         nivelTensao = "Baixa Tensão";
-    } else if (tensaoAtendimento >= 1000 && tensaoAtendimento <= 36000) {
+    else if (tensaoAtendimento >= 1000 && tensaoAtendimento <= 36000)
         nivelTensao = "Média Tensão";
-    } else {
+    else
         nivelTensao = "Alta Tensão";
-    }
 }
 
 float UnidadeConsumidora::getUltimaLeitura() const {
@@ -66,6 +77,9 @@ void UnidadeConsumidora::setUltimaLeitura(float ultimaLeitura) {
 }
 
 void UnidadeConsumidora::gerarFatura(float valor) {
-    UnidadeConsumidora::adicionarFatura(Fatura(valor, Data().dateNow(), Data().dateNow().plusOneMonth(), valor - UnidadeConsumidora::getUltimaLeitura()));
+  
+    UnidadeConsumidora::adicionarFatura(Fatura(valor, Data().dateNow(),   
+    Data().dateNow().plusOneMonth(), valor - UnidadeConsumidora::getUltimaLeitura()));
+  
     UnidadeConsumidora::setUltimaLeitura(valor);
 }
